@@ -1,15 +1,17 @@
 class PostsController < ApplicationController
+
   def index
-    @posts = Post.all
+    @posts = Post.all.order(id: "DESC")
   end
 
   def create
+    # binding.pry
     post = Post.create(content: params[:content], checked: false)
     render json:{ post: post }
   end
 
   def checked
-    binding.pry
+    # binding.pry
     post = Post.find(params[:id])
     if post.checked
       post.update(checked: false)
@@ -18,6 +20,7 @@ class PostsController < ApplicationController
     end
 
     item = Post.find(params[:id])
-    render json: { post: item }
+    render json:{ post: item }
   end
+
 end
